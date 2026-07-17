@@ -20,22 +20,22 @@ This app uses CrewAI agents to analyze a business requirement in an enterprise-s
 st.sidebar.header("API Key Setup")
 
 user_api_key = st.sidebar.text_input(
-    "Enter your OpenAI API Key",
+    "Enter your GROQ API Key",
     type="password",
     help="Your API key is used only for this session."
 )
 
 if user_api_key:
-    st.session_state["OPENAI_API_KEY"] = user_api_key
+    st.session_state["GROQ_API_KEY"] = user_api_key
 
-api_key = st.session_state.get("OPENAI_API_KEY")
+api_key = st.session_state.get("GROQ_API_KEY")
 
 if not api_key:
     st.info("Please enter your OpenAI API key in the sidebar to continue.")
     st.stop()
 
 llm = LLM(
-    model="gpt-4o-mini",
+    model="llama-3.1-8b-instant",
     api_key=api_key,
     temperature=0.2
 )
