@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 from crewai import Agent, Task, Crew, Process, LLM
 
 st.set_page_config(
@@ -20,23 +21,23 @@ This app uses CrewAI agents to analyze a business requirement in an enterprise-s
 st.sidebar.header("API Key Setup")
 
 user_api_key = st.sidebar.text_input(
-    "Enter your GROQ API Key",
+    "Enter your Gemini API Key",
     type="password",
-    help="Your API key is used only for this session."
+    help="Your Gemini API key is used only for this session."
 )
 
 if user_api_key:
-    st.session_state["GROQ_API_KEY"] = user_api_key
+    st.session_state["GEMINI_API_KEY"] = user_api_key
+    os.environ["GOOGLE_API_KEY"] = user_api_key
 
-api_key = st.session_state.get("GROQ_API_KEY")
+api_key = st.session_state.get("GEMINI_API_KEY")
 
 if not api_key:
-    st.info("Please enter your OpenAI API key in the sidebar to continue.")
+    st.info("Please enter your Gemini API key in the sidebar to continue.")
     st.stop()
 
 llm = LLM(
-    model="llama-3.1-8b-instant",
-    api_key=api_key,
+    model="gemini/gemini-3.5-flash",
     temperature=0.2
 )
 
